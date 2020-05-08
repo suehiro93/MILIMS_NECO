@@ -9,7 +9,7 @@
 
 ---
 
-# Requirement:
+# Requirement
 * R (version 3.4 or later.)
 * R Packages:"data.table", "kernlab", "qlcMatrix", "R.matlab", "MASS", "compiler", and "Rcplex" or "lpSolveAPI". For visualization, you need "zoo", "RColorBrewer", "gplots"  
 * Software  
@@ -17,13 +17,13 @@ CPLEX (A Solver provided by IBM. If you use Rcplex).
 
 ---
 
-# Usage:
+# Usage
 
-* Install required packages
- install.packages(c("data.table", "kernlab", "qlcMatrix", "R.matlab", "MASS"))
-* To solve LP problems,  one of the following packages is required
-install.package("Rcplex") # recommended, but you need to install CPLEX software (free for academic user), and you need some setting for configuring Rcplex.  
-install.package("lpSolveAPI") # You intanstly use without installing external software and setting, but less efficient than Rcplex.
+* Install required packages:  
+`install.packages(c("data.table", "kernlab", "qlcMatrix", "R.matlab", "MASS"))`
+* To solve LP problems,  one of the following packages is required:
+`install.package("Rcplex") # recommended, but you need to install CPLEX software (free for academic user), and you need some setting for configuring Rcplex.`  
+`install.package("lpSolveAPI") # You intanstly use without installing external software and setting, but less efficient than Rcplex.`  
 
 * Read R files for setting up:  
 ***NOTE: If you don't use "CPLEX" optimizer with "Rcplex", please set `"RCPLEX <- FALSE"` in "setup.R"***  
@@ -47,18 +47,18 @@ Below is the simple commands for time-series classification. For MIL tasks, see 
 * Set shapelet lengths:  
 `shapelet_lengths <- round(c(0.3, 0.4)*ncol(italy_train_orign$x))`  
 
-* Run MILIMS for time-series classification and the shapelet-based classification model  
+* Run MILIMS for time-series classification and the shapelet-based classification model:  
 `model <- MILIMS4TS_script(italy_train_orign$x, italy_train_orign$y, shapelet_lengths, param.list)`  
 
-* Calculate classification accuracy for test set  
+* Calculate classification accuracy for test set:  
 `calc_accuracy4TS(italy_model,italy_test_orign$x,italy_test_orign$y)`  
 
-* Get predicted labels  
+* Get predicted labels:  
 `val <- evalFun_TS(model, italy_test_orign$x)`  
 `predicted_labels <- sign(val)`  
 
 
-# Inputs of main functions:
+# Inputs of main functions
 MILIMS requires:  
 * Training bags: list.  
 * Each bag (i.e., the element of the list) contains set of instances as a matrix (rownum: #sample, colnum: #dimension)
@@ -80,7 +80,7 @@ please pad the shorter time series with NA.*
 * SHAPELET (default=FALSE): If TRUE, the algorithms roughly solve the weak learning problem (see Appendix B.1 in the paper). This mode may be useful for the rough hyper-parameter search.  
 
 
-# Outputs (learned model):
+# Outputs (learned model)
 The classification model is a convex combination of shapelet-based classifiers. The fomula is g(B) in the end of Section 4 in the paper.  
 * w: weights of shapelet-based classifiers  
 * b: bias term of the classification function  
@@ -91,7 +91,7 @@ The classification model is a convex combination of shapelet-based classifiers. 
 * ells (only for MILIMS4TS): shapelet lengths.  
 * ells_ids (only for MILIMS4TS): index of ells for each shapelet-based classifier.  
 
-# About hyper-parameters:
+# About hyper-parameters
 We can set the hyperparameters as a list using "set_MILIMS_parameter".  
 The important parameters are:
 * nu: Lower bound of the training error. That is, if nu=0.2, our the training error of the output model does not exceed 0.2. Note that very small nu induces the overfitting. If the margin (rho) is 0, the output model should be worthless because of the small nu.
@@ -102,7 +102,7 @@ If you cannot obtain the desired classification accuracy, we recommend to tune t
   
 If you run out of memory, please set the parameter "optimizer" as 2. The algorithm solves the weak learning problems by AdaGrad (we need to set a learning rate ETA_adagrad (defalut =10)).  
 
-# Visualization:
+# Visualization
 We give a sample code for the visualization of obtained shapelet-based classifiers.  
 
 `source("./visualization_beta_ver.R")`
@@ -110,7 +110,7 @@ We give a sample code for the visualization of obtained shapelet-based classifie
 Get a model  
 `model <- MILIMS4TS_script(temp, italy_train_orign$y, shapelet_lengths, param.list)`  
 
-Observe top-5 (shapelet-like) important short sequences (Warm colored sequence contributes to positive, cold colored negative) in the classifier.  
+Observe top-5 (shapelet-like) important short sequences (warm colored sequence contributes to positive, cold colored negative) in the classifier.  
 `visualize_shapelets(italy_test_orign$x[1,], model, 5)`  
 
 Observe maximizers in the bag (i.e., matched sequences corresponds to the shapelets)
