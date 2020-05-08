@@ -124,3 +124,4 @@ for the top-10 shapelets in the classifier.
 `visualize_shapelets2(italy_test_orign$x[1,,drop=FALSE], model, 10, y_min=-3, y_max=3)`
 
 
+# 
