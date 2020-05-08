@@ -1,4 +1,4 @@
-# Overview:
+# Shapelet-based Multiple-Insatnce Learning  
 * This repository gives the implementation of the method published in [1]. This method generally works for Multiple-Instance Learning tasks and Shapelet-Learning tasks for time-series classification.
 * This is the first shepelet-learning method with the theoretical generalization performance.
 * Competitively performs with SOTA methods in practice.
