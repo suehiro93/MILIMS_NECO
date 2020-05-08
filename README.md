@@ -15,6 +15,11 @@
 * Software  
 CPLEX (A Solver provided by IBM. If you use Rcplex).  
 
+To know how to install CPLEX and Rcplex, the following pages may be helpful for you:
+* http://www-stat.wharton.upenn.edu/~josezubi/INSTALL
+* https://cran.r-project.org/web/packages/Rcplex/INSTALL
+* https://cvxr.rbind.io/cvxr_examples/cvxr_using-other-solvers/
+
 ---
 
 # Usage
@@ -116,3 +121,5 @@ Observe top-5 (shapelet-like) important short sequences (warm colored sequence c
 Observe maximizers in the bag (i.e., matched sequences corresponds to the shapelets)
 for the top-10 shapelets in the classifier.  
 `visualize_shapelets2(italy_test_orign$x[1,,drop=FALSE], model, 10, y_min=-3, y_max=3)`
+
+
