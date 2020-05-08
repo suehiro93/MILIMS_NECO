@@ -10,10 +10,10 @@
 ---
 
 # Requirement:
-* R (version 3.4)
-* R Packages:"data.table", "kernlab", "qlcMatrix", "R.matlab", "MASS", "compiler", and "Rcplex" or "lpSolveAPI". For visualization, you need "zoo", "RColorBrewer", "gplots"
-Software
-CPLEX (A Solver provided by IBM. If you use Rcplex).
+* R (version 3.4 or later.)
+* R Packages:"data.table", "kernlab", "qlcMatrix", "R.matlab", "MASS", "compiler", and "Rcplex" or "lpSolveAPI". For visualization, you need "zoo", "RColorBrewer", "gplots"  
+* Software  
+CPLEX (A Solver provided by IBM. If you use Rcplex).  
 
 ---
 
