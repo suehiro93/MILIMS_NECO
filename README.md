@@ -11,7 +11,7 @@
 
 # Requirement
 * R (version 3.4 or later.)
-* R Packages:"data.table", "kernlab", "qlcMatrix", "R.matlab", "MASS", "compiler", and "Rcplex" or "lpSolveAPI". For visualization, you need "zoo", "RColorBrewer", "gplots"  
+* R Packages: "data.table", "kernlab", "qlcMatrix", "R.matlab", "MASS", "compiler", and "Rcplex" or "lpSolveAPI". For visualization, you need "zoo", "RColorBrewer", "gplots"  
 * Software  
 CPLEX (A Solver provided by IBM. If you use Rcplex).  
 
@@ -26,7 +26,7 @@ To know how to install CPLEX and Rcplex, the following pages may be helpful for 
 
 * Install required packages:  
 `install.packages(c("data.table", "kernlab", "qlcMatrix", "R.matlab", "MASS"))`
-* To solve LP problems,  one of the following packages is required:  
+* To solve LP problems, one of the following packages is required:  
 `install.package("Rcplex") # recommended, but you need to install CPLEX software (free for academic user), and you need some setting for configuring Rcplex.`  
 `install.package("lpSolveAPI") # You can intanstly use our method without installing external software and setting, but less efficient than Rcplex.`  
 
@@ -88,8 +88,8 @@ please pad the shorter time series with NA.*
 
 # Outputs (learned model)
 The classification model is a convex combination of shapelet-based classifiers. The fomula is g(B) in the end of Section 4 in the paper.  
-* w: weights of shapelet-based classifiers  
-* b: bias term of the classification function  
+* w: weights of shapelet-based classifiers.  
+* b: bias term of the classification function.  
 * alpha, Kx: \sum \alpha K(x,) (=u in the paper). large alpha implies the importance of x for classification.  
 * kerneldot: kernel function.  
 * sigma: parameter of kernel.  
@@ -123,5 +123,7 @@ Observe maximizers in the bag (i.e., matched sequences corresponds to the shapel
 for the top-10 shapelets in the classifier.  
 `visualize_shapelets2(italy_test_orign$x[1,,drop=FALSE], model, 10, y_min=-3, y_max=3)`
 
-
-# 
+# Acknowledgement  
+We use some of the following datasets for the demos.
+* https://www.cs.ucr.edu/~eamonn/time_series_data/
+* http://www.cs.columbia.edu/~andrews/mil/datasets.html
