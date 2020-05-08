@@ -32,65 +32,65 @@ install.package("lpSolveAPI") # You intanstly use without installing external so
 ***NOTE: If you don't use "CPLEX" optimizer with "Rcplex", please set `"RCPLEX <- FALSE"` in "setup.R"***  
 `source("setup.R")`
 
-*Run demos:
+* Run demos:  
 Shapelet-Learning tasks for time-series classification:  
 `source("./demo_ts.R")`  
 MIL tasks:  
-`source("./demo_ts.R")`
+`source("./demo_ts.R")`  
+  
+Below is the simple commands for time-series classification. For MIL tasks, see aldo demo_mi.R
 
-Here is the simple commands for time-series classification. For MIL tasks, see aldo demo_mi.R
+* Read datasets:  
+`italy_train_orign <- read_ts("./data4demo/ItalyPowerDemand/ItalyPowerDemand_TRAIN")`  
+`italy_test_orign <- read_ts("./data4demo/ItalyPowerDemand/ItalyPowerDemand_TEST")`  
 
-* Read datasets:
-italy_train_orign <- read_ts("./data4demo/ItalyPowerDemand/ItalyPowerDemand_TRAIN")
-italy_test_orign <- read_ts("./data4demo/ItalyPowerDemand/ItalyPowerDemand_TEST")
+* Set parameters:  
+`param.list <- set_MILIMS_parameter() # use default parameters`  
 
-* Set parameters:
-param.list <- set_MILIMS_parameter() # use default parameters
+* Set shapelet lengths:  
+`shapelet_lengths <- round(c(0.3, 0.4)*ncol(italy_train_orign$x))`  
 
-* Set shapelet lengths:
-shapelet_lengths <- round(c(0.3, 0.4)*ncol(italy_train_orign$x))
+* Run MILIMS for time-series classification and the shapelet-based classification model  
+`model <- MILIMS4TS_script(italy_train_orign$x, italy_train_orign$y, shapelet_lengths, param.list)`  
 
-* Run MILIMS for time-series classification and the shapelet-based classification model
-model <- MILIMS4TS_script(italy_train_orign$x, italy_train_orign$y, shapelet_lengths, param.list)
+* Calculate classification accuracy for test set  
+`calc_accuracy4TS(italy_model,italy_test_orign$x,italy_test_orign$y)`  
 
-* Calculate classification accuracy for test set
-calc_accuracy4TS(italy_model,italy_test_orign$x,italy_test_orign$y)
-
-* Get predicted labels
-val <- evalFun_TS(model, italy_test_orign$x)
-predicted_labels <- sign(val)
+* Get predicted labels  
+`val <- evalFun_TS(model, italy_test_orign$x)`  
+`predicted_labels <- sign(val)`  
 
 
 # Inputs of main functions:
-MILIMS requires: 
-Training bags: list. 
+MILIMS requires:  
+Training bags: list.  
 Each bag (i.e., the element of the list) contains set of instances as a matrix (rownum: #sample, colnum: #dimension)
-The labels of the bags: vector (+1 or -1).
-Note: We are now implementing the code for multi-class classification. The current version is available for binary classification.
-The numbers of instances: vector of integers. 
-Parameters: list.
+The labels of the bags: vector (+1 or -1).  
+Note: We are now implementing the code for multi-class classification. The current version is available for binary classification.  
+The numbers of instances: vector of integers.   
+Parameters: list (details are later).  
 
-MILIMS4TS_script requires:
-Time-series datasets: matrix (rownum: #samples, colnum: #time-series length).
+MILIMS4TS_script requires:  
+Time-series datasets: matrix (rownum: #samples, colnum: #time-series length).  
 *If you want to use time-series datasets that contain various lengths of time-series, 
-please pad the shorter time series with NA.* 
-The labels of the time series.
-Parameters: list.
-Lengths of shapelets (hyper-parameter).
-seed (default=1): We can change initial seed of kmeans function.
-SHAPELET (default=FALSE): If TRUE, the algorithms roughly solve the weak learning problem (see Appendix B.1 in the paper). This mode may be useful for the rough hyper-parameter search.
+please pad the shorter time series with NA.*  
+The labels of the time series.  
+Parameters: list.  
+Lengths of shapelets (hyper-parameter).  
+seed (default=1): We can change initial seed of kmeans function.  
+SHAPELET (default=FALSE): If TRUE, the algorithms roughly solve the weak learning problem (see Appendix B.1 in the paper). This mode may be useful for the rough hyper-parameter search.  
 
 
 # Outputs (learned model):
-The classification model is a convex combination of shapelet-based classifiers. The fomula is g(B) in the end of Section 4 in the paper.
-w: weights of shapelet-based classifiers
-b: bias term of the classification function
-alpha, Kx: \sum \alpha K(x,) (=u in the paper). large alpha implies the importance of x for classification.
-kerneldot: kernel function.
-sigma: parameter of kernel.
-train_time: running time.
-ells (only for MILIMS4TS): shapelet lengths.
-ells_ids (only for MILIMS4TS): index of ells for each shapelet-based classifier.
+The classification model is a convex combination of shapelet-based classifiers. The fomula is g(B) in the end of Section 4 in the paper.  
+w: weights of shapelet-based classifiers  
+b: bias term of the classification function  
+alpha, Kx: \sum \alpha K(x,) (=u in the paper). large alpha implies the importance of x for classification.  
+kerneldot: kernel function.  
+sigma: parameter of kernel.  
+train_time: running time.  
+ells (only for MILIMS4TS): shapelet lengths.  
+ells_ids (only for MILIMS4TS): index of ells for each shapelet-based classifier.  
 
 # About hyper-parameters:
 We can set the hyperparameters as a list using "set_MILIMS_parameter".
