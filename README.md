@@ -117,5 +117,5 @@ Observe top-5 (shapelet-like) important short sequences (Warm colored sequence c
 `visualize_shapelets(italy_test_orign$x[1,], model, 5)`  
 
 Observe maximizers in the bag (i.e., matched sequences corresponds to the shapelets)
-for the top-10 shapelets in the classifier.
-visualize_shapelets2(italy_test_orign$x[1,,drop=FALSE], model, 10, y_min=-3, y_max=3)
+for the top-10 shapelets in the classifier.  
+`visualize_shapelets2(italy_test_orign$x[1,,drop=FALSE], model, 10, y_min=-3, y_max=3)`
