@@ -28,14 +28,14 @@ CPLEX (A Solver provided by IBM. If you use Rcplex).
 install.package("Rcplex") # recommended, but you need to install CPLEX software (free for academic user), and you need some setting for configuring Rcplex.  
 install.package("lpSolveAPI") # You intanstly use without installing external software and setting, but less efficient than Rcplex.
 
-* Read R files for setting up:
-***NOTE: If you don't use "CPLEX" optimizer with "Rcplex", please set "RCPLEX <- FALSE" in "setup.R"***
+* Read R files for setting up:  
+***NOTE: If you don't use "CPLEX" optimizer with "Rcplex", please set "RCPLEX <- FALSE" in "setup.R"***  
 `source("setup.R")`
 
 *Run demos:
-Shapelet-Learning tasks for time-series classification:
+Shapelet-Learning tasks for time-series classification:  
 `source("./demo_ts.R")`
-MIL tasks:
+MIL tasks:  
 `source("./demo_ts.R")`
 
 Here is the simple commands for time-series classification. For MIL tasks, see aldo demo_mi.R
