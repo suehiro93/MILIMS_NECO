@@ -36,9 +36,9 @@ install.package("lpSolveAPI") # You intanstly use without installing external so
 Shapelet-Learning tasks for time-series classification:  
 `source("./demo_ts.R")`  
 MIL tasks:  
-`source("./demo_ts.R")`  
+`source("./demo_mi.R")`  
   
-Below is the simple commands for time-series classification. For MIL tasks, see aldo demo_mi.R
+Below is the simple commands for time-series classification. For MIL tasks, see demo_mi.R
 
 * Read datasets:  
 `italy_train_orign <- read_ts("./data4demo/ItalyPowerDemand/ItalyPowerDemand_TRAIN")`  
@@ -63,56 +63,58 @@ Below is the simple commands for time-series classification. For MIL tasks, see 
 
 # Inputs of main functions:
 MILIMS requires:  
-Training bags: list.  
-Each bag (i.e., the element of the list) contains set of instances as a matrix (rownum: #sample, colnum: #dimension)
-The labels of the bags: vector (+1 or -1).  
+* Training bags: list.  
+* Each bag (i.e., the element of the list) contains set of instances as a matrix (rownum: #sample, colnum: #dimension)
+* The labels of the bags: vector (+1 or -1).  
 Note: We are now implementing the code for multi-class classification. The current version is available for binary classification.  
-The numbers of instances: vector of integers.   
-Parameters: list (details are later).  
+* The numbers of instances: vector of integers.   
+* Parameters: list (details are later).  
+* seed (default=1): We can change initial seed of kmeans function.  
+* SHAPELET (default=FALSE): If TRUE, the algorithms roughly solve the weak learning problem (see Appendix B.1 in the paper). This mode may be useful for the rough hyper-parameter search.  
 
 MILIMS4TS_script requires:  
-Time-series datasets: matrix (rownum: #samples, colnum: #time-series length).  
+* Time-series datasets: matrix (rownum: #samples, colnum: #time-series length).  
 *If you want to use time-series datasets that contain various lengths of time-series, 
 please pad the shorter time series with NA.*  
-The labels of the time series.  
-Parameters: list.  
-Lengths of shapelets (hyper-parameter).  
-seed (default=1): We can change initial seed of kmeans function.  
-SHAPELET (default=FALSE): If TRUE, the algorithms roughly solve the weak learning problem (see Appendix B.1 in the paper). This mode may be useful for the rough hyper-parameter search.  
+* The labels of the time series.  
+* Parameters: list (details are later).  
+* Lengths of shapelets (hyper-parameter).  
+* seed (default=1): We can change initial seed of kmeans function.  
+* SHAPELET (default=FALSE): If TRUE, the algorithms roughly solve the weak learning problem (see Appendix B.1 in the paper). This mode may be useful for the rough hyper-parameter search.  
 
 
 # Outputs (learned model):
 The classification model is a convex combination of shapelet-based classifiers. The fomula is g(B) in the end of Section 4 in the paper.  
-w: weights of shapelet-based classifiers  
-b: bias term of the classification function  
-alpha, Kx: \sum \alpha K(x,) (=u in the paper). large alpha implies the importance of x for classification.  
-kerneldot: kernel function.  
-sigma: parameter of kernel.  
-train_time: running time.  
-ells (only for MILIMS4TS): shapelet lengths.  
-ells_ids (only for MILIMS4TS): index of ells for each shapelet-based classifier.  
+* w: weights of shapelet-based classifiers  
+* b: bias term of the classification function  
+* alpha, Kx: \sum \alpha K(x,) (=u in the paper). large alpha implies the importance of x for classification.  
+* kerneldot: kernel function.  
+* sigma: parameter of kernel.  
+* train_time: running time.  
+* ells (only for MILIMS4TS): shapelet lengths.  
+* ells_ids (only for MILIMS4TS): index of ells for each shapelet-based classifier.  
 
 # About hyper-parameters:
-We can set the hyperparameters as a list using "set_MILIMS_parameter".
+We can set the hyperparameters as a list using "set_MILIMS_parameter".  
 The important parameters are:
-nu: Lower bound of the training error. That is, if nu=0.2, our the training error of the output model does not exceed 0.2. Note that very small nu induces the overfitting. If the margin (rho) is 0, the output model should be worthless because of the small nu.
-sigma: The parameter of the Gaussian kernel. Note that we use the Gaussian kernel implemented by kernlab package, i.e., K(x,z) = exp(-sigma||x-z||^2).
-Km: K of the k-means clustering algorithm (see Section 6.4 in the paper). If Km=NULL, the algorithm use all instances appearing in the all training bags. Our algorithm runs faster with smaller K, but very small K decrease the classification performance. If you have large number of instances in total, please set Km as some constant ingteger (e.g., 100). For time-series classificaiton, the total number of instances (i.e., the number of subsequences) is very large.
+* nu: Lower bound of the training error. That is, if nu=0.2, our the training error of the output model does not exceed 0.2. Note that very small nu induces the overfitting. If the margin (rho) is 0, the output model should be worthless because of the small nu.
+* sigma: The parameter of the Gaussian kernel. Note that we use the Gaussian kernel implemented by kernlab package, i.e., K(x,z) = exp(-sigma||x-z||^2).
+* Km: K of the k-means clustering algorithm (see Section 6.4 in the paper). If Km=NULL, the algorithm use all instances appearing in the all training bags. Our algorithm runs faster with smaller K, but very small K decrease the classification performance. If you have large number of instances in total, please set Km as some constant ingteger (e.g., 100). For time-series classificaiton, the total number of instances (i.e., the number of subsequences) is very large.  
 
-If you cannot obtain the desired classification accuracy, we recommend to tune the above hyperparameters.
-
-If you run out of memory, please set the parameter "optimizer" as 2. The algorithm solves the weak learning problems by AdaGrad (we need to set a learning rate ETA_adagrad (defalut =10)).
+If you cannot obtain the desired classification accuracy, we recommend to tune the above hyperparameters.  
+  
+If you run out of memory, please set the parameter "optimizer" as 2. The algorithm solves the weak learning problems by AdaGrad (we need to set a learning rate ETA_adagrad (defalut =10)).  
 
 # Visualization:
-We give a sample code for the visualization of obtained shapelet-based classifiers.
+We give a sample code for the visualization of obtained shapelet-based classifiers.  
 
-source("./visualization_beta_ver.R")
+`source("./visualization_beta_ver.R")`
 
-Get a model 
-model <- MILIMS4TS_script(temp, italy_train_orign$y, shapelet_lengths, param.list)
+Get a model  
+`model <- MILIMS4TS_script(temp, italy_train_orign$y, shapelet_lengths, param.list)`  
 
-Observe top-5 (shapelet-like) important short sequences (Warm colored sequence contributes to positive, cold colored negative) in the classifier.
-visualize_shapelets(italy_test_orign$x[1,], model, 5)
+Observe top-5 (shapelet-like) important short sequences (Warm colored sequence contributes to positive, cold colored negative) in the classifier.  
+`visualize_shapelets(italy_test_orign$x[1,], model, 5)`  
 
 Observe maximizers in the bag (i.e., matched sequences corresponds to the shapelets)
 for the top-10 shapelets in the classifier.
