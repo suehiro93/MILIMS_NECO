@@ -29,12 +29,12 @@ install.package("Rcplex") # recommended, but you need to install CPLEX software 
 install.package("lpSolveAPI") # You intanstly use without installing external software and setting, but less efficient than Rcplex.
 
 * Read R files for setting up:  
-***NOTE: If you don't use "CPLEX" optimizer with "Rcplex", please set "RCPLEX <- FALSE" in "setup.R"***  
+***NOTE: If you don't use "CPLEX" optimizer with "Rcplex", please set `"RCPLEX <- FALSE"` in "setup.R"***  
 `source("setup.R")`
 
 *Run demos:
 Shapelet-Learning tasks for time-series classification:  
-`source("./demo_ts.R")`
+`source("./demo_ts.R")`  
 MIL tasks:  
 `source("./demo_ts.R")`
 
