@@ -26,9 +26,9 @@ To know how to install CPLEX and Rcplex, the following pages may be helpful for 
 
 * Install required packages:  
 `install.packages(c("data.table", "kernlab", "qlcMatrix", "R.matlab", "MASS"))`
-* To solve LP problems,  one of the following packages is required:
+* To solve LP problems,  one of the following packages is required:  
 `install.package("Rcplex") # recommended, but you need to install CPLEX software (free for academic user), and you need some setting for configuring Rcplex.`  
-`install.package("lpSolveAPI") # You intanstly use without installing external software and setting, but less efficient than Rcplex.`  
+`install.package("lpSolveAPI") # You can intanstly use our method without installing external software and setting, but less efficient than Rcplex.`  
 
 * Read R files for setting up:  
 ***NOTE: If you don't use "CPLEX" optimizer with "Rcplex", please set `"RCPLEX <- FALSE"` in "setup.R"***  
@@ -65,24 +65,25 @@ Below is the simple commands for time-series classification. For MIL tasks, see 
 
 # Inputs of main functions
 MILIMS requires:  
-* Training bags: list.  
-* Each bag (i.e., the element of the list) contains set of instances as a matrix (rownum: #sample, colnum: #dimension)
-* The labels of the bags: vector (+1 or -1).  
-Note: We are now implementing the code for multi-class classification. The current version is available for binary classification.  
-* The numbers of instances: vector of integers.   
-* Parameters: list (details are later).  
-* seed (default=1): We can change initial seed of kmeans function.  
-* SHAPELET (default=FALSE): If TRUE, the algorithms roughly solve the weak learning problem (see Appendix B.1 in the paper). This mode may be useful for the rough hyper-parameter search.  
+* Training bags: **list**.  
+Each bag (i.e., the element of the list) contains set of instances as a matrix (rownum: #sample, colnum: #dimension)
+* The labels of the bags: **vector (+1 or -1)**.  
+*Note: We are now implementing the code for multi-class classification. The current version is available for binary classification.*  
+* The numbers of instances: **vector of integers**.   
+* Parameters: **list** (details are later).  
+* seed (default=1): **small integer**. We can change initial seed of kmeans function.  
+* SHAPELET (default=FALSE): **boolean**. If TRUE, the algorithms roughly solve the weak learning problem (see Appendix B.1 in the paper). This mode may be useful for the rough hyper-parameter search.  
 
 MILIMS4TS_script requires:  
-* Time-series datasets: matrix (rownum: #samples, colnum: #time-series length).  
-*If you want to use time-series datasets that contain various lengths of time-series, 
+* Time-series datasets: **matrix** (rownum: #samples, colnum: #time-series length).  
+If you want to use time-series datasets that contain various lengths of time-series, 
 please pad the shorter time series with NA.*  
-* The labels of the time series.  
-* Parameters: list (details are later).  
-* Lengths of shapelets (hyper-parameter).  
-* seed (default=1): We can change initial seed of kmeans function.  
-* SHAPELET (default=FALSE): If TRUE, the algorithms roughly solve the weak learning problem (see Appendix B.1 in the paper). This mode may be useful for the rough hyper-parameter search.  
+* The labels of the time series: **vector (+1 or -1)**.  
+*Note: We are now implementing the code for multi-class classification. The current version is available for binary classification.*  
+* Parameters: **list** (details are later).  
+* Lengths of shapelets (hyper-parameter): **vector of integers**.  
+* seed (default=1): **small integer**. We can change initial seed of kmeans function.  
+* SHAPELET (default=FALSE): **boolean**. If TRUE, the algorithms roughly solve the weak learning problem (see Appendix B.1 in the paper). This mode may be useful for the rough hyper-parameter search.  
 
 
 # Outputs (learned model)
