@@ -30,13 +30,13 @@ install.package("lpSolveAPI") # You intanstly use without installing external so
 
 * Read R files for setting up:
 ***NOTE: If you don't use "CPLEX" optimizer with "Rcplex", please set "RCPLEX <- FALSE" in "setup.R"***
-source("setup.R")
+`source("setup.R")`
 
 *Run demos:
 Shapelet-Learning tasks for time-series classification:
-source("./demo_ts.R") 
+`source("./demo_ts.R")`
 MIL tasks:
-source("./demo_ts.R") 
+`source("./demo_ts.R")`
 
 Here is the simple commands for time-series classification. For MIL tasks, see aldo demo_mi.R
 
