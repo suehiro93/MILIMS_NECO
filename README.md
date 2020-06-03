@@ -43,23 +43,23 @@ MIL tasks:
 Below is the simple commands for time-series classification. For MIL tasks, see demo_mi.R
 
 * Read datasets:  
-`italy_train_orign <- read_ts("./data4demo/ItalyPowerDemand/ItalyPowerDemand_TRAIN")`  
-`italy_test_orign <- read_ts("./data4demo/ItalyPowerDemand/ItalyPowerDemand_TEST")`  
+`italy_train_origin <- read_ts("./data4demo/ItalyPowerDemand/ItalyPowerDemand_TRAIN")`  
+`italy_test_origin <- read_ts("./data4demo/ItalyPowerDemand/ItalyPowerDemand_TEST")`  
 
 * Set parameters:  
 `param.list <- set_MILIMS_parameter() # use default parameters`  
 
 * Set shapelet lengths:  
-`shapelet_lengths <- round(c(0.3, 0.4)*ncol(italy_train_orign$x))`  
+`shapelet_lengths <- round(c(0.3, 0.4)*ncol(italy_train_origin$x))`  
 
 * Run MILIMS for time-series classification and the shapelet-based classification model:  
-`model <- MILIMS4TS_script(italy_train_orign$x, italy_train_orign$y, shapelet_lengths, param.list)`  
+`model <- MILIMS4TS_script(italy_train_origin$x, italy_train_origin$y, shapelet_lengths, param.list)`  
 
 * Calculate classification accuracy for test set:  
-`calc_accuracy4TS(italy_model,italy_test_orign$x,italy_test_orign$y)`  
+`calc_accuracy4TS(italy_model,italy_test_origin$x,italy_test_origin$y)`  
 
 * Get predicted labels:  
-`val <- evalFun_TS(model, italy_test_orign$x)`  
+`val <- evalFun_TS(model, italy_test_origin$x)`  
 `predicted_labels <- sign(val)`  
 
 
@@ -114,14 +114,14 @@ We give a sample code for the visualization of obtained shapelet-based classifie
 `source("./visualization_beta_ver.R")`
 
 Get a model  
-`model <- MILIMS4TS_script(italy_train_orign$x, italy_train_orign$y, shapelet_lengths, param.list)`  
+`model <- MILIMS4TS_script(italy_train_origin$x, italy_train_origin$y, shapelet_lengths, param.list)`  
 
 Observe top-5 (shapelet-like) important short sequences (warm colored sequence contributes to positive, cold colored negative) in the classifier.  
-`visualize_shapelets(italy_test_orign$x[1,], model, 5)`  
+`visualize_shapelets(italy_test_origin$x[1,], model, 5)`  
 
 Observe maximizers in the bag (i.e., matched sequences corresponds to the shapelets)
 for the top-10 shapelets in the classifier.  
-`visualize_shapelets2(italy_test_orign$x[1,,drop=FALSE], model, 10, y_min=-3, y_max=3)`
+`visualize_shapelets2(italy_test_origin$x[1,,drop=FALSE], model, 10, y_min=-3, y_max=3)`
 
 # Acknowledgement  
 We use some of the following datasets for the demos.
