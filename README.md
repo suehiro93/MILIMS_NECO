@@ -3,7 +3,7 @@
 * This is the first shepelet-learning method with the theoretical generalization performance.
 * Competitively performs with shapelet-based SOTA methods in practice.
 
-1. Daiki Suehiro, Kohei Hatano, Eiji Takimoto, Shuji Yamamoto, Kenichi Bannai, Akiko Takeda, "Theory and Algorithms for Shapelet-based Multiple-Instance Learning", Neural Computation, to appear (arXiv version is ).
+1. Daiki Suehiro, Kohei Hatano, Eiji Takimoto, Shuji Yamamoto, Kenichi Bannai, Akiko Takeda, "Theory and Algorithms for Shapelet-based Multiple-Instance Learning", Neural Computation, to appear (arXiv version: https://arxiv.org/abs/2006.01130).
 
 "MILIMS" comes from "Multiple-Instance Learning by Infinitely Many Shapelet-based classifiers".
 
