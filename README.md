@@ -114,7 +114,7 @@ We give a sample code for the visualization of obtained shapelet-based classifie
 `source("./visualization_beta_ver.R")`
 
 Get a model  
-`model <- MILIMS4TS_script(temp, italy_train_orign$y, shapelet_lengths, param.list)`  
+`model <- MILIMS4TS_script(italy_train_orign$x, italy_train_orign$y, shapelet_lengths, param.list)`  
 
 Observe top-5 (shapelet-like) important short sequences (warm colored sequence contributes to positive, cold colored negative) in the classifier.  
 `visualize_shapelets(italy_test_orign$x[1,], model, 5)`  
