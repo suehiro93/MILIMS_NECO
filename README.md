@@ -12,8 +12,8 @@
 # Requirement
 * R (version 3.4 or later.)
 * R Packages: "data.table", "kernlab", "qlcMatrix", "R.matlab", "MASS", "compiler", and "Rcplex" or "lpSolveAPI". For visualization, you need "zoo", "RColorBrewer", "gplots"  
-* Software  
-CPLEX (A Solver provided by IBM. If you use Rcplex).  
+* Software 
+CPLEX provided by IBM (Optional. The optimization solver can be replaced by LP solver in lpSolveAPI package. NOTE: If you don't use "CPLEX" optimizer with "Rcplex", please set "RCPLEX <- FALSE" in "setup.R")).  
 
 To know how to install CPLEX and Rcplex, the following pages may be helpful for you:
 * http://www-stat.wharton.upenn.edu/~josezubi/INSTALL
