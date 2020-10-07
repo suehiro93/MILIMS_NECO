@@ -16,7 +16,7 @@ shapelet_lengths <- round(c(0.3, 0.4)*ncol(italy_train_orign$x))
 model <- MILIMS4TS_script(italy_train_orign$x, italy_train_orign$y, shapelet_lengths, param.list)
 
 # Calculate classification accuracy for test set
-calc_accuracy4TS(italy_model,italy_test_orign$x,italy_test_orign$y)
+calc_accuracy4TS(model,italy_test_orign$x,italy_test_orign$y)
 
 # Get predicted labels
 val <- evalFun_TS(model, italy_test_orign$x)
